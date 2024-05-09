@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Notification } = require('electron');
+const { app, BrowserWindow, ipcMain, Notification } = require('electron');
 const path = require('path');
 const url = require('url');
 
@@ -14,7 +14,7 @@ function createWindow() {
   mainWindow.loadURL(
     process.env.ELECTRON_START_URL ||
       url.format({
-        pathname: path.join(__dirname, '../build/index.html'),
+        pathname: path.join(__dirname, '../public/index.html'),
         protocol: 'file:',
         slashes: true,
       })
@@ -37,9 +37,13 @@ app.on('window-all-closed', () => {
   }
 });
 
-const notification = new Notification({
-    title: 'Notification Title',
-    body: 'Notification Body',
+ipcMain.on('send-notification', (event, data) => {
+  const { title, body } = data;
+
+  const notification = new Notification({
+    title,
+    body,
+  });
+
+  notification.show();
 });
-  
-notification.show();

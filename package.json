@@ -19,7 +19,8 @@
     "eject": "react-scripts eject",
     "electron": "electron ./public/electron.js",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder"
+    "dist": "electron-builder",
+    "dev": "concurrently \"npm start\" \"npm run electron\""
   },
   "eslintConfig": {
     "extends": [
