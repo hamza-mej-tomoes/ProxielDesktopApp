@@ -36,3 +36,157 @@
     transform: rotate(360deg);
   }
 }
+
+/* First Half */
+@media (max-width: 785px) {
+  .logo {
+    width: 30px !important;
+    height: 30px !important;
+  }
+
+  .logo svg {
+    width: 20px !important;
+    height: 20px !important;
+  }
+
+  .nav-app .title {
+    font-size: 19px !important;
+  }
+
+  .right-nav .title {
+    font-size: 16px !important;
+  }
+
+  .meteo svg {
+    width: 13px !important;
+    height: 13px !important;
+    margin-top: 5px !important;
+  }
+
+  .meteo .meteo-number {
+    font-size: 16px !important;
+  }
+
+  .meteo p{
+    font-size: 10px !important;
+  }
+
+  .time .time-number {
+    font-size: 16px !important;
+  }
+  .time p{
+    font-size: 10px !important;
+  }
+  .nav-separator {
+    margin: 0 10px 0 -12px !important;
+    height: 25px !important;
+    border-left: 1px solid silver !important;
+  }
+}
+
+/* Second Half */
+@media (max-width: 785px) {
+  .second-section {
+    margin: 0 30px !important;
+  }
+  .header-section-two .time-notification svg{
+    width: 13px !important;
+    height: 13px !important;
+  }
+  .header-section-two .time-notification{
+    font-size: 12px !important;
+  }
+
+  .header-section-two p{
+    font-size: 25px !important;
+    line-height: 0 !important;
+    margin-bottom: 13px !important;
+  }
+
+  .alert .time{
+    font-size: 20px !important;
+  }
+  .alert .description{
+    font-size: 10px !important;
+  }
+
+  .alert .description span{
+    font-size: 10px !important;
+  }
+
+  .alert .form-switch {
+    padding-left: 0 !important;
+  }
+
+  .alert .form-switch .switch {
+    width: 30px !important;
+    height: 16px !important;
+    
+  }
+
+  .alert .form-switch .switch-inner {
+    margin-left: 7px !important;
+    
+  }
+
+  .form-switch .switch-switch {
+    width: 13px !important;
+    height: 13px !important;
+    top: 1px !important;
+    /* left: ${isChecked1 ? '11px' : '1px'}; */
+  }
+  
+  /* type-notification */
+  .type-notification .title{
+    font-size: 12px !important;
+  }
+
+  .type-notification svg{
+    width: 12px !important;
+    height: 12px !important;
+  }
+  .petite-notification{
+    font-size: 12px !important;
+  }
+  .petite-notification .elements{
+    padding: 10px !important;
+  }
+
+  .petite-notification .window-notification{
+    height: 70px !important;
+  }
+
+  input[type="checkbox"] {
+    transform: scale(1) !important;
+    margin-left: 5px !important;
+  }
+
+  .petite-notification .title{
+    font-size: 10px !important;
+  }
+
+  .petite-notification .window-element{
+    margin-left: -15px !important;
+    margin-right: -20px !important;
+  }
+
+  .petite-notification .card-header{
+    height: 15px !important;
+  }
+
+  /* .petite-notification .window-element{
+    padding-right: 20px !important;
+  } */
+
+  .window-grande-notification .card-body {
+    height: 30px !important;
+  }
+
+  .window-petite-notification .card-body {
+    height: 5px !important;
+  }
+
+  button {
+    font-size: 14px !important;
+  }
+}
