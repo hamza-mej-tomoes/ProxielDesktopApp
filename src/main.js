@@ -5,22 +5,21 @@ const url = require('url');
 let mainWindow;
 
 function createWindow() {
-const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
-    webPreferences: {
-      nodeIntegration: true,
-      enableRemoteModule: true,
-      contextIsolation: false,
-      webSecurity: false,
-      // preload: path.join(app.getAppPath(), '../src/preload.js'),
-    },
-    
-});
+  const mainWindow = new BrowserWindow({
+      width: 800,
+      height: 600,
+      webPreferences: {
+        nodeIntegration: true,
+        enableRemoteModule: true,
+        contextIsolation: false,
+        webSecurity: false,
+        // preload: path.join(app.getAppPath(), '../src/preload.js'),
+      },
+  });
 
-mainWindow.loadURL('http://localhost:3000'); // Assuming your React app runs on localhost:3000 during development
+  mainWindow.loadURL('http://localhost:3000');
 
-mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
 }
 
 app.on('ready', createWindow);

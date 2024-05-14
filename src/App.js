@@ -33,12 +33,12 @@ function App() {
       // });
       // notification.show();
 
-      console.log(ipcRenderer);
+      // console.log(ipcRenderer);
 
-      ipcRenderer.send('send-notification', {
-        title,
-        body,
-      });
+      // ipcRenderer.send('send-notification', {
+      //   title,
+      //   body,
+      // });
     };
 
     // Schedule notifications (adjust time as needed)
@@ -98,7 +98,7 @@ function App() {
         
         {/* Second Half */}
         <div className="h-100" style={{width: '43%'}}>
-          <div className="mt-5 mt-sm-3 second-section" style={{ margin: '0 90px'}}>
+          <div className="mt-lg-4 mt-sm-3 second-section" style={{ margin: '0 90px'}}>
             {/* Section 1 */}
             <div className="">
               <div className="header-section-two d-flex justify-content-between align-items-center fs-5">
@@ -109,7 +109,7 @@ function App() {
               </div>
             </div>
             {/* Section 2 */}
-            <div className="alert d-flex justify-content-between align-items-center justify-content-center px-4 px-sm-3 py-3 rounded" style={{ backgroundColor: '#E2F1F8' }}>
+            <div className="alert d-flex justify-content-between align-items-center justify-content-center px-lg-4 px-sm-3 py-lg-3 py-sm-2 mb-lg-4 rounded" style={{ backgroundColor: '#E2F1F8' }}>
               <div className="d-flex row justify-content-between align-items-center">
                 <p className="mb-0 fs-2 time" style={{ fontWeight: 600, color:'#32395F' }}>09:00</p>
                 <p className="mb-0 description" style={{ fontWeight: 600, color:'#32395F', fontSize:'14px' }}>Une fois | <span className="" style={{ fontWeight: 600, color:'#708090', fontSize:'14px' }}>Alert dans 02h30min</span></p>
@@ -125,7 +125,7 @@ function App() {
               </div>
             </div>
             {/* Section 2 */}
-            <div className="alert d-flex justify-content-between align-items-center justify-content-center px-4 px-sm-3 py-3 mt-4 mt-sm-0 rounded" style={{ backgroundColor: '#E2F1F8' }}>
+            <div className="alert d-flex justify-content-between align-items-center justify-content-center px-lg-4 px-sm-3 py-lg-3 py-sm-2 mt-lg-4 rounded" style={{ backgroundColor: '#E2F1F8' }}>
               <div className="d-flex row justify-content-between align-items-center fs-6">
                 <p className="mb-0 fs-2 time" style={{ fontWeight: 600, color:'#32395F' }}>09:00</p>
                 <p className="mb-0 description" style={{ fontWeight: 600, color:'#32395F', fontSize:'14px' }}>Une fois | <span className="" style={{ fontWeight: 600, color:'#708090', fontSize:'14px' }}>Alert dans 02h30min</span></p>
@@ -140,92 +140,97 @@ function App() {
                 </label>
               </div>
             </div>
-            <span class="d-block border-bottom border-muted border-1 mt-5 mt-sm-4 mb-4 mb-sm-3"></span>
+            <span class="d-block border-bottom border-muted border-1 mt-lg-5 mb-lg-4 mt-sm-2 mb-sm-2"></span>
             <div className="type-notification">
               {/* <div className="d-flex row align-items-center justify-content-center"> */}
-                <div className="d-flex justify-content-between align-items-center fs-5 title">
+                <div className="title d-flex justify-content-between align-items-center fs-5">
                   <p style={{ fontWeight: 600, color:'#32395F' }}>
                   <svg xmlns="http://www.w3.org/2000/svg" className="me-2 mb-1" viewBox="0 0 512 512" height="15" width="15"><path d="M320 0c-17.7 0-32 14.3-32 32s14.3 32 32 32h82.7L201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L448 109.3V192c0 17.7 14.3 32 32 32s32-14.3 32-32V32c0-17.7-14.3-32-32-32H320zM80 32C35.8 32 0 67.8 0 112V432c0 44.2 35.8 80 80 80H400c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32V432c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H192c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z" style={{ fill: '#007dbf' }}/></svg>
                     TYPE DE NOTIFICATION
                   </p>
                 </div>
-                <div className="petite-notification d-flex justify-content-between">
-                  <div
-                    className="elements flex justify-content-between fs-4 rounded py-3 py-sm-0 me-3 me-sm-2"
-                    style={{
-                      cursor: 'pointer',
-                      transition: 'background-color 0.3s, border-color 0.3s',
-                      border: '2px solid #EFEFEF',
-                      backgroundColor: '#transparent',
-                      padding: '10px', // Adjust padding as needed
-                    }}
-                    onClick={(e) => {
-                      const checkbox = e.currentTarget.querySelector('input[type="checkbox"]');
-                      checkbox.click();
-                      const parent = e.currentTarget.closest('.d-flex');
+                <div className="row">
+                  <div className="petite-notification col-md-6 col-sm-6">
+                    <div
+                      className="elements elements1 d-flex justify-content-between fs-4 rounded py-lg-3"
+                      style={{
+                        cursor: 'pointer',
+                        transition: 'background-color 0.3s, border-color 0.3s',
+                        border: '2px solid #EFEFEF',
+                        backgroundColor: '#transparent',
+                        padding: '10px', // Adjust padding as needed
+                      }}
+                      onClick={(e) => {
+                        const checkbox = e.currentTarget.querySelector('input[type="checkbox"]');
+                        checkbox.click();
+                        const parent = e.currentTarget.closest('.d-flex');
 
-                      if (checkbox.checked) {
-                        e.currentTarget.style.borderColor = '#007dbf';
-                        parent.style.backgroundColor = '#e2f1f8';
-                      } else {
-                        e.currentTarget.style.borderColor = '#EFEFEF';
-                        parent.style.backgroundColor = 'transparent';
-                      }
-                    }}
-                  >
-                    <div className="d-flex flex-column mx-2 mx-sm-0 fs-4">
-                      <div className="d-flex justify-content-between align-items-center w-100 pb-3 pb-sm-2">
-                        <p className="title m-0 text-nowrap" style={{ fontSize: '13px', color:'#32395F', fontWeight: 600}}>Petite notification</p>
-                        <input type="checkbox" style={{ transform: `scale(${scale})` }} />
-                      </div>
-                      <div className="pe-5 pe-sm-1 window-notification" style={{ height: '160px' }}>
-                        <div class="window-petite-notification card rounded h-100">
-                          <div class="card-header bg-transparent d-flex justify-content-start align-items-center py-0" style={{ height: '20px' }}>
-                            <span class="mb-3" style={{ color: '#00000090', fontSize: '30px' }}>...</span>
-                          </div>
-                          <div class="d-flex justify-content-end align-items-end ps-5 ps-sm-4 pe-3 pe-sm-1 mb-3 mb-sm-1 h-100" style={{ height: '5px' }}>
-                            <div class="card-body bg-warning rounded" >
+                        if (checkbox.checked) {
+                          e.currentTarget.style.borderColor = '#007dbf';
+                          parent.style.backgroundColor = '#e2f1f8';
+                        } else {
+                          e.currentTarget.style.borderColor = '#EFEFEF';
+                          parent.style.backgroundColor = 'transparent';
+                        }
+                      }}
+                    >
+                      <div className="window-element d-flex row justify-content-between fs-4 p-lg-2">
+                        <div className="d-flex justify-content-between align-items-center pb-lg-3 pb-sm-2">
+                          <p className="title m-0 text-nowrap" style={{ fontSize: '13px', color:'#32395F', fontWeight: 600}}>Petite notification</p>
+                          <input type="checkbox" style={{ transform: `scale(${scale})` }} />
+                        </div>
+                        <div className="pe-lg-5 pe-sm-4 window-notification" style={{ height: '160px' }}>
+                          <div class="window-petite-notification card rounded h-100">
+                            <div class="card-header bg-transparent d-flex justify-content-start align-items-center py-0" style={{ height: '20px' }}>
+                              <span class="mb-3" style={{ color: '#00000090', fontSize: '30px' }}>...</span>
+                            </div>
+                            <div class="d-flex justify-content-end align-items-end ps-5 ps-sm-4 pe-3 pe-sm-1 mb-3 mb-sm-1 h-100" style={{ height: '5px' }}>
+                              <div class="card-body bg-warning rounded" >
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div
-                    className="elements d-flex justify-content-between fs-4 rounded py-3 py-sm-0 me-3 me-sm-0 "
-                    style={{
-                      cursor: 'pointer',
-                      transition: 'background-color 0.3s, border-color 0.3s',
-                      border: '2px solid #EFEFEF',
-                      backgroundColor: '#transparent',
-                      padding: '10px', // Adjust padding as needed
-                    }}
-                    onClick={(e) => {
-                      const checkbox = e.currentTarget.querySelector('input[type="checkbox"]');
-                      checkbox.click();
-                      const parent = e.currentTarget.closest('.d-flex');
+                  
+                  <div className="petite-notification col-md-6 col-sm-6">
+                    <div
+                      className="elements elements2 d-flex justify-content-between fs-4 rounded py-lg-3"
+                      style={{
+                        cursor: 'pointer',
+                        transition: 'background-color 0.3s, border-color 0.3s',
+                        border: '2px solid #EFEFEF',
+                        backgroundColor: '#transparent',
+                        padding: '10px', // Adjust padding as needed
+                      }}
+                      onClick={(e) => {
+                        const checkbox = e.currentTarget.querySelector('input[type="checkbox"]');
+                        checkbox.click();
+                        const parent = e.currentTarget.closest('.d-flex');
 
-                      if (checkbox.checked) {
-                        e.currentTarget.style.borderColor = '#007dbf';
-                        parent.style.backgroundColor = '#e2f1f8';
-                      } else {
-                        e.currentTarget.style.borderColor = '#EFEFEF';
-                        parent.style.backgroundColor = 'transparent';
-                      }
-                    }}
-                  >
-                    <div className="window-element d-flex row justify-content-between mx-2 mx-sm-0 fs-4">
-                      <div className="d-flex justify-content-between align-items-center pb-3 pb-sm-2">
-                        <p className="title m-0 text-nowrap" style={{ fontSize: '13px', color:'#32395F', fontWeight: 600}}>Grande notification</p>
-                        <input type="checkbox" style={{ transform: `scale(${scale})` }} />
-                      </div>
-                      <div className="pe-5 pe-sm-4 window-notification" style={{ height: '160px' }}>
-                        <div class="window-grande-notification card rounded h-100">
-                          <div class="card-header bg-transparent d-flex justify-content-start align-items-center py-0" style={{ height: '20px' }}>
-                            <span class="mb-3" style={{ color: '#00000090', fontSize: '30px' }}>...</span>
-                          </div>
-                          <div class="px-5 px-sm-3 h-100 d-flex align-items-center">
-                            <div class="card-body bg-warning rounded" style={{ height: '80px' }}>
+                        if (checkbox.checked) {
+                          e.currentTarget.style.borderColor = '#007dbf';
+                          parent.style.backgroundColor = '#e2f1f8';
+                        } else {
+                          e.currentTarget.style.borderColor = '#EFEFEF';
+                          parent.style.backgroundColor = 'transparent';
+                        }
+                      }}
+                    >
+                      <div className="window-element d-flex row justify-content-between fs-4 p-lg-2">
+                        <div className="d-flex justify-content-between align-items-center pb-lg-3 pb-sm-2">
+                          <p className="title m-0 text-nowrap" style={{ fontSize: '13px', color:'#32395F', fontWeight: 600}}>Grande notification</p>
+                          <input type="checkbox" style={{ transform: `scale(${scale})` }} />
+                        </div>
+                        <div className="pe-lg-5 pe-sm-4 window-notification" style={{ height: '160px' }}>
+                          <div class="window-grande-notification card rounded h-100">
+                            <div class="card-header bg-transparent d-flex justify-content-start align-items-center py-0" style={{ height: '20px' }}>
+                              <span class="mb-3" style={{ color: '#00000090', fontSize: '30px' }}>...</span>
+                            </div>
+                            <div class="px-lg-5 px-sm-3 h-100 d-flex align-items-center">
+                              <div class="card-body bg-warning rounded" style={{ height: '80px' }}>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -233,12 +238,10 @@ function App() {
                     </div>
                   </div>
                 </div>
-
-              {/* </div> */}
             </div>
-            <span class="d-block border-bottom border-muted border-1 my-5 my-sm-4"></span>
-            <div class="row px-2"> 
-              <button class="btn btn-lg rounded text-white py-3 py-sm-2" style={{ backgroundColor: '#007dbf' }}>ENREGISTER LA NOTIFICATION</button>
+            <span class="d-block border-bottom border-muted border-1 my-lg-5 my-sm-3"></span>
+            <div class="row px-2 "> 
+              <button class="btn btn-lg rounded text-white py-lg-4 py-sm-2" style={{ backgroundColor: '#007dbf' }}>ENREGISTER LA NOTIFICATION</button>
             </div>
           </div>
           
