@@ -2,6 +2,7 @@ import React, { useEffect, useState  } from 'react';
 import './App.css';
 
 // const { ipcRenderer } = window.require('electron');
+// const { ipcRenderer } = window
 
 function App() {
   const [isChecked1, setIsChecked1] = useState(true);
@@ -17,35 +18,47 @@ function App() {
 
   useEffect(() => {
     const sendNotification = (title, body) => {
+      console.log('body',body)
+      console.log('title',title)
+
       if (!title || !body) {
         alert('Please enter notification title and body.');
         return;
       }
 
       // new Notification(title, { body });
-
-      // ipcRenderer.send('send-notification', {
+      // const notification = new Notification({
       //   title,
       //   body,
       // });
+      // notification.show();
+
+      console.log(ipcRenderer);
+
+      ipcRenderer.send('send-notification', {
+        title,
+        body,
+      });
     };
 
     // Schedule notifications (adjust time as needed)
     const morningTime = new Date();
-    morningTime.setHours(10, 0, 0); // 10:00 AM
+    morningTime.setHours(12, 10, 0); // 10:00 AM
     const afternoonTime = new Date();
-    afternoonTime.setHours(13, 1, 0); // 3:00 PM
+    afternoonTime.setHours(14, 5, 0); // 3:00 PM
 
     setInterval(() => {
       const now = new Date();
       if (now.getHours() === morningTime.getHours() && now.getMinutes() === morningTime.getMinutes()) {
+        console.log(now.getHours(), morningTime.getHours() , now.getMinutes() , morningTime.getMinutes()) //console log
         sendNotification('Morning Exercise Reminder', 'Time to do your morning exercises!');
       } else if (now.getHours() === afternoonTime.getHours() && now.getMinutes() === afternoonTime.getMinutes()) {
-        console.log(now.getHours(), afternoonTime.getHours() , now.getMinutes() , afternoonTime.getMinutes())
+        console.log(now.getHours(), afternoonTime.getHours() , now.getMinutes() , afternoonTime.getMinutes()) //console log
         sendNotification('Afternoon Exercise Reminder', 'Time to do your afternoon exercises!');
       }
     }, 6000); // Check every minute for the specified times
   }, []);
+  
   const scale = 1.5;
 
   // 783 535
