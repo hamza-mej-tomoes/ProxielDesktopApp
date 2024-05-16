@@ -1,25 +1,18 @@
-const { app, BrowserWindow, ipcMain, Notification } = require('electron');
-const path = require('path');
-const url = require('url');
+const { app, BrowserWindow } = require('electron');
 
-let mainWindow;
-
-function createWindow() {
+function createWindow () {
+  // Create the browser window.
   const mainWindow = new BrowserWindow({
-      width: 800,
-      height: 600,
-      webPreferences: {
-        nodeIntegration: true,
-        enableRemoteModule: true,
-        contextIsolation: false,
-        webSecurity: false,
-        // preload: path.join(app.getAppPath(), '../src/preload.js'),
-      },
+    width: 800,
+    height: 600,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
+    }
   });
 
-  mainWindow.loadURL('http://localhost:3000');
-
-  mainWindow.webContents.openDevTools();
+  // and load the index.html of the app.
+mainWindow.loadURL('http://localhost:3000');
 }
 
 app.on('ready', createWindow);
@@ -31,24 +24,7 @@ app.on('window-all-closed', () => {
 });
 
 app.on('activate', () => {
-  if (mainWindow === null) {
+  if (BrowserWindow.getAllWindows().length === 0) {
     createWindow();
   }
-});
-
-ipcMain.on("notify", (_, message) => {
-  new Notification({ title: "Notification", body: message }).show();
-});
-
-// receive notification from sendNotification app.js
-ipcMain.on('send-notification', (event, data) => {
-  console.log('teeest ipcMain', data)
-  const { title, body } = data;
-
-  const notification = new Notification({
-    title,
-    body,
-  });
-
-  notification.show();
 });

@@ -16,36 +16,25 @@ function App() {
     setIsChecked2(!isChecked2);
   };
 
-  useEffect(() => {
-    const sendNotification = (title, body) => {
-      console.log('body',body)
-      console.log('title',title)
-
-      if (!title || !body) {
-        alert('Please enter notification title and body.');
-        return;
+  function sendNotification(title, body) {
+    console.log('Requesting permission...');
+    Notification.requestPermission().then(permission => {
+      console.log(`Permission: ${permission}`);
+      if (permission === 'granted') {
+        console.log('Sending notification...');
+        // new Notification(title, {
+        //   body: body,
+        // });
       }
+    });
+  }
 
-      // new Notification(title, { body });
-      // const notification = new Notification({
-      //   title,
-      //   body,
-      // });
-      // notification.show();
-
-      // console.log(ipcRenderer);
-
-      // ipcRenderer.send('send-notification', {
-      //   title,
-      //   body,
-      // });
-    };
-
+  useEffect(() => {
     // Schedule notifications (adjust time as needed)
     const morningTime = new Date();
-    morningTime.setHours(12, 10, 0); // 10:00 AM
+    morningTime.setHours(12, 41, 0); // 10:00 AM
     const afternoonTime = new Date();
-    afternoonTime.setHours(14, 5, 0); // 3:00 PM
+    afternoonTime.setHours(14, 4, 0); // 3:00 PM
 
     setInterval(() => {
       const now = new Date();
@@ -63,10 +52,10 @@ function App() {
 
   // 783 535
   return (
-    <div className="container-fluid h-100">
-      <div className="row h-100">
+    <div className="container-fluid ">
+      <div className="row">
         {/* First Half */}
-        <div className="" style={{width: '57%', color:'#32395F',height: '100vh', backgroundImage: `url('https://img.freepik.com/free-photo/doctor-working-with-laptop_23-2147646059.jpg?t=st=1715265775~exp=1715269375~hmac=686c3046a58bd0d4792a22069548aadd88b612c72ec9840951f393b35411c26c&w=740')`, backgroundSize: 'cover' }}>
+        <div className="col-6" style={{width: '54%', color:'#32395F',height: '100vh', backgroundSize: 'cover', backgroundPosition: 'center', backgroundImage: `url('https://img.freepik.com/free-photo/doctor-working-with-laptop_23-2147646059.jpg?t=st=1715265775~exp=1715269375~hmac=686c3046a58bd0d4792a22069548aadd88b612c72ec9840951f393b35411c26c&w=740')`}}>
           <div className="d-flex justify-content-between mx-sm-2 mt-sm-1 mx-5 mt-4 nav-app">
             {/* Left Side Elements */}
             <div className="d-flex align-items-center justify-content-between">
@@ -95,10 +84,10 @@ function App() {
             </div>
           </div>
         </div>
-        
+       
         {/* Second Half */}
-        <div className="h-100" style={{width: '43%'}}>
-          <div className="mt-lg-4 mt-sm-3 second-section" style={{ margin: '0 90px'}}>
+        <div className="col-6" style={{overflowY: 'auto', maxHeight: '100vh', width: '46%', maxWidth: '46%', whiteSpace: 'nowrap'}}>
+          <div className="mt-lg-4 mt-sm-3 second-section mx-lg-5 mx-md-4 mx-sm-3" >
             {/* Section 1 */}
             <div className="">
               <div className="header-section-two d-flex justify-content-between align-items-center fs-5">
@@ -109,7 +98,7 @@ function App() {
               </div>
             </div>
             {/* Section 2 */}
-            <div className="alert d-flex justify-content-between align-items-center justify-content-center px-lg-4 px-sm-3 py-lg-3 py-sm-2 mb-lg-4 rounded" style={{ backgroundColor: '#E2F1F8' }}>
+            <div className="alert d-flex justify-content-between align-items-center justify-content-center px-lg-4 px-sm-3 py-lg-3 py-sm-32 mb-lg-4 rounded" style={{ backgroundColor: '#E2F1F8' }}>
               <div className="d-flex row justify-content-between align-items-center">
                 <p className="mb-0 fs-2 time" style={{ fontWeight: 600, color:'#32395F' }}>09:00</p>
                 <p className="mb-0 description" style={{ fontWeight: 600, color:'#32395F', fontSize:'14px' }}>Une fois | <span className="" style={{ fontWeight: 600, color:'#708090', fontSize:'14px' }}>Alert dans 02h30min</span></p>
@@ -125,7 +114,7 @@ function App() {
               </div>
             </div>
             {/* Section 2 */}
-            <div className="alert d-flex justify-content-between align-items-center justify-content-center px-lg-4 px-sm-3 py-lg-3 py-sm-2 mt-lg-4 rounded" style={{ backgroundColor: '#E2F1F8' }}>
+            <div className="alert d-flex justify-content-between align-items-center justify-content-center px-lg-4 px-sm-3 py-lg-3 py-sm-3 mt-lg-4 rounded" style={{ backgroundColor: '#E2F1F8' }}>
               <div className="d-flex row justify-content-between align-items-center fs-6">
                 <p className="mb-0 fs-2 time" style={{ fontWeight: 600, color:'#32395F' }}>09:00</p>
                 <p className="mb-0 description" style={{ fontWeight: 600, color:'#32395F', fontSize:'14px' }}>Une fois | <span className="" style={{ fontWeight: 600, color:'#708090', fontSize:'14px' }}>Alert dans 02h30min</span></p>
@@ -140,7 +129,7 @@ function App() {
                 </label>
               </div>
             </div>
-            <span class="d-block border-bottom border-muted border-1 mt-lg-5 mb-lg-4 mt-sm-2 mb-sm-2"></span>
+            <span class="d-block border-bottom border-muted border-1 mt-lg-5 mb-lg-4 mt-sm-4 mb-sm-3"></span>
             <div className="type-notification">
               {/* <div className="d-flex row align-items-center justify-content-center"> */}
                 <div className="title d-flex justify-content-between align-items-center fs-5">
@@ -149,8 +138,8 @@ function App() {
                     TYPE DE NOTIFICATION
                   </p>
                 </div>
-                <div className="row">
-                  <div className="petite-notification col-md-6 col-sm-6">
+                <div className="type-notification-card row">
+                  <div className="petite-notification col-md-6 col-sm-6" style={{ height: '',width: '50%' }}>
                     <div
                       className="elements elements1 d-flex justify-content-between fs-4 rounded py-lg-3"
                       style={{
@@ -158,7 +147,7 @@ function App() {
                         transition: 'background-color 0.3s, border-color 0.3s',
                         border: '2px solid #EFEFEF',
                         backgroundColor: '#transparent',
-                        padding: '10px', // Adjust padding as needed
+                        padding: '10px',
                       }}
                       onClick={(e) => {
                         const checkbox = e.currentTarget.querySelector('input[type="checkbox"]');
@@ -174,12 +163,12 @@ function App() {
                         }
                       }}
                     >
-                      <div className="window-element d-flex row justify-content-between fs-4 p-lg-2">
+                      <div className="window-element d-flex flex-column justify-content-center fs-4 p-lg-2" style={{ height: '',width: '94%' }}>
                         <div className="d-flex justify-content-between align-items-center pb-lg-3 pb-sm-2">
-                          <p className="title m-0 text-nowrap" style={{ fontSize: '13px', color:'#32395F', fontWeight: 600}}>Petite notification</p>
-                          <input type="checkbox" style={{ transform: `scale(${scale})` }} />
+                          <p className="title m-0" style={{ fontSize: '13px', color:'#32395F', fontWeight: 600, cursor: 'pointer'}}>Petite notification</p>
+                          <input type="checkbox" style={{ transform: `scale(${scale})`, cursor: 'pointer' }} />
                         </div>
-                        <div className="pe-lg-5 pe-sm-4 window-notification" style={{ height: '160px' }}>
+                        <div className=" window-notification" style={{ height: '160px' }}>
                           <div class="window-petite-notification card rounded h-100">
                             <div class="card-header bg-transparent d-flex justify-content-start align-items-center py-0" style={{ height: '20px' }}>
                               <span class="mb-3" style={{ color: '#00000090', fontSize: '30px' }}>...</span>
@@ -194,7 +183,7 @@ function App() {
                     </div>
                   </div>
                   
-                  <div className="petite-notification col-md-6 col-sm-6">
+                  <div className="petite-notification col-md-6 col-sm-6" style={{ height: '',width: '50%' }}>
                     <div
                       className="elements elements2 d-flex justify-content-between fs-4 rounded py-lg-3"
                       style={{
@@ -218,18 +207,18 @@ function App() {
                         }
                       }}
                     >
-                      <div className="window-element d-flex row justify-content-between fs-4 p-lg-2">
+                      <div className="window-element d-flex flex-column justify-content-center fs-4 p-lg-2" style={{ height: '',width: '94%' }}>
                         <div className="d-flex justify-content-between align-items-center pb-lg-3 pb-sm-2">
-                          <p className="title m-0 text-nowrap" style={{ fontSize: '13px', color:'#32395F', fontWeight: 600}}>Grande notification</p>
-                          <input type="checkbox" style={{ transform: `scale(${scale})` }} />
+                          <p className="title m-0" style={{ fontSize: '13px', color:'#32395F', fontWeight: 600, cursor: 'pointer'}}>Grande notification</p>
+                          <input type="checkbox" style={{ transform: `scale(${scale})`, cursor: 'pointer' }} />
                         </div>
-                        <div className="pe-lg-5 pe-sm-4 window-notification" style={{ height: '160px' }}>
+                        <div className=" window-notification" style={{ height: '160px', width: '100%' }}>
                           <div class="window-grande-notification card rounded h-100">
                             <div class="card-header bg-transparent d-flex justify-content-start align-items-center py-0" style={{ height: '20px' }}>
                               <span class="mb-3" style={{ color: '#00000090', fontSize: '30px' }}>...</span>
                             </div>
-                            <div class="px-lg-5 px-sm-3 h-100 d-flex align-items-center">
-                              <div class="card-body bg-warning rounded" style={{ height: '80px' }}>
+                            <div class=" h-100 d-flex align-items-center d-flex justify-content-center ">
+                              <div class="card-body bg-warning rounded" style={{ height: '50%', maxHeight: '65%', width: '75%', maxWidth: '65%' }}>
                               </div>
                             </div>
                           </div>
@@ -242,6 +231,7 @@ function App() {
             <span class="d-block border-bottom border-muted border-1 my-lg-5 my-sm-3"></span>
             <div class="row px-2 "> 
               <button class="btn btn-lg rounded text-white py-lg-4 py-sm-2" style={{ backgroundColor: '#007dbf' }}>ENREGISTER LA NOTIFICATION</button>
+              {/* <button onClick={sendNotification}>Send Notification</button> */}
             </div>
           </div>
           
