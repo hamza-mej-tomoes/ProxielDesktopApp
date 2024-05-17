@@ -38,6 +38,21 @@
 }
 
 /* First Half */
+
+@media (max-width: 1300px) {
+  .logo {
+    width: 30px !important;
+    height: 30px !important;
+  }
+
+  .nav-app .title {
+    font-size: 22px !important;
+  }
+
+  .right-nav {
+    font-size: 12px !important;
+  }
+} 
 @media (max-width: 960px) {
   .logo {
     width: 30px !important;
@@ -86,13 +101,23 @@
 
 /* Second Half */
 @media (max-width: 960px) {
+  
+
   .second-section {
     margin: 0 30px !important;
   }
+  .nav-app{
+    margin: -50px 0 !important;
+  }
+  /* .header-section-two {
+    margin: 2px 0 !important;
+  } */
+
   .header-section-two .time-notification svg{
     width: 13px !important;
     height: 13px !important;
   }
+
   .header-section-two .time-notification{
     font-size: 12px !important;
   }
@@ -114,24 +139,19 @@
     font-size: 10px !important;
   }
 
-  .alert .form-switch {
-    padding-left: 0 !important;
+  .switch {
+    width: 40px !important;
+    height: 20px !important; 
+    border-radius: 10px !important;
   }
 
-  .alert .form-switch .switch {
-    width: 30px !important;
-    height: 16px !important;
-    
+  .switch-inner {
+    border-radius: 10px !important;
   }
 
-  .alert .form-switch .switch-inner {
-    margin-left: 7px !important;
-    
-  }
-
-  .form-switch .switch-switch {
-    width: 13px !important;
-    height: 13px !important;
+  .switch-switch {
+    width: 18px !important;
+    height: 18px !important;
     top: 1px !important;
   }
   
@@ -165,79 +185,10 @@
     height: 100px !important;
   }
 
-  /* .petite-notification{
-    font-size: 12px !important;
-  }
-  .petite-notification .elements{
-    padding: 10px !important;
-  }
-
-  .petite-notification .elements1{
-    margin-right: -7px;
-  }
-
-  .petite-notification .elements2{
-    margin-left: -7px;
-  }
-
-  .petite-notification .window-notification{
-    height: 70px !important;
-  }
-
-  input[type="checkbox"] {
-    transform: scale(1) !important;
-    margin-left: 5px !important;
-  }
-
-  .petite-notification .title{
-    font-size: 9px !important;
-  }
-
-  .petite-notification .window-element{
-    margin-left: -15px !important;
-    margin-right: -15px !important;
-  }
-
-  .petite-notification .card-header{
-    height: 15px !important;
-  }
-
-  .window-grande-notification .card-body {
-    height: 30px !important;
-  }
-
-  .window-petite-notification .card-body {
-    height: 5px !important;
-  } */
-
   button {
     font-size: 14px !important;
   }
 }
-
-@media (max-width: 960px) {
-
-}
-
-/* Second Half */
-/* @media (max-width: 980px) and (min-height: 551px) {
-  .type-notification-card {
-    display: flex !important;
-    flex-direction: column !important;
-  }
-  .type-notification-card .petite-notification {
-    width: 100% !important;
-  }
-
-  .petite-notification .elements1{
-    margin-right: 0px !important;
-    margin-bottom: 15px !important;
-  }
-
-  .petite-notification .elements2{
-    margin-left: 0px !important;
-  }
-} */
 
 @media (max-width: 730px) {
   .type-notification-card {
@@ -255,5 +206,26 @@
 
   .petite-notification .elements2{
     margin-left: 0px !important;
+  }
+
+  .second-section {
+    margin-top: 32px !important;
+  }
+}
+
+
+@media (max-width: 680px) {
+  .second-half {
+    position: fixed !important;
+  }
+  .right-nav .meteo {
+    display: none !important;
+  }
+
+  .nav-separator{
+    display: none !important;
+  }
+  .right-nav .time{
+    display: none !important;
   }
 }
