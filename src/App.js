@@ -1,4 +1,4 @@
-import React, { useEffect, useState  } from 'react';
+import React, { useEffect, useState , useRef , useLayoutEffect  } from 'react';
 import './App.css';
 
 // const { ipcRenderer } = window.require('electron');
@@ -50,6 +50,105 @@ function App() {
   
   const scale = 1.5;
 
+  const [selectedTime, setSelectedTime] = useState('00:00');
+  const [showExpandedView, setShowExpandedView] = useState(false); // State variable to track expanded view
+
+  const handleToggleExpandedView = () => {
+    setShowExpandedView(!showExpandedView); // Toggle expanded view state
+  };
+
+  const hours = Array.from({ length: 24 }, (_, i) => (i < 10 ? `0${i}` : `${i}`));
+  const minutes = Array.from({ length: 60 }, (_, i) => (i < 10 ? `0${i}` : `${i}`));
+
+  const [selectedHour, setSelectedHour] = useState(11); // Set initially to center
+  const [selectedMinute, setSelectedMinute] = useState(29); // Set initially to center
+
+  const hourRef = useRef(null);
+  const minuteRef = useRef(null);
+
+  useEffect(() => {
+    const container = hourRef.current;
+    if (!container) return;
+
+    const itemHeight = container.children[0].clientHeight;
+    const containerHeight = container.clientHeight;
+
+    const centerIndex = Math.floor(containerHeight / (2 * itemHeight));
+
+    container.scrollTo({
+      top: (selectedHour - centerIndex) * itemHeight,
+      behavior: 'smooth'
+    });
+  }, [selectedHour]);
+
+  useEffect(() => {
+    const container = minuteRef.current;
+    if (!container) return;
+
+    const itemHeight = container.children[0].clientHeight;
+    const containerHeight = container.clientHeight;
+
+    const centerIndex = Math.floor(containerHeight / (2 * itemHeight));
+
+    container.scrollTo({
+      top: (selectedMinute - centerIndex) * itemHeight,
+      behavior: 'smooth'
+    });
+  }, [selectedMinute]);
+
+  const handleHourScroll = (direction) => {
+    setSelectedHour(selectedHour + direction);
+  };
+
+  const handleMinuteScroll = (direction) => {
+    setSelectedMinute(selectedMinute + direction);
+  };
+
+  const handleTerminerClick = () => {
+    // Get the selected hour and minute
+    const selectedHourElement = hourRef.current.children[selectedHour];
+    const selectedMinuteElement = minuteRef.current.children[selectedMinute];
+    
+    // Extract hour and minute from selected elements
+    const hour = selectedHourElement.textContent;
+    const minute = selectedMinuteElement.textContent;
+  
+    // Construct new selected time
+    const newSelectedTime = `${hour}:${minute}`;
+  
+    // Update the selected time state
+    setSelectedTime(newSelectedTime);
+    handleToggleExpandedView();
+  };
+
+  const containerStyle = {
+    display: 'flex',
+    flexDirection: 'column',
+    height: '200px',
+    overflowY: 'hidden',
+    scrollSnapType: 'y mandatory',
+    position: 'relative'
+  };
+
+  const itemStyle = {
+    scrollSnapAlign: 'start',
+    padding: '0px 0',
+    textAlign: 'center',
+    fontSize: '3rem',
+    color: '#a5acb5',
+    fontWeight: 'bold'
+  };
+
+  const boldStyle = {
+    color: '#32395F',
+  };
+
+  const arrowStyle = {
+    fontSize: '2rem',
+    cursor: 'pointer',
+    userSelect: 'none'
+  };
+
   // 783 535
   return (
     <div className="container-fluid ">
@@ -98,27 +197,83 @@ function App() {
               </div>
             </div>
             {/* Section 2 */}
-            {/* px-lg-4 px-sm-3 py-lg-3 py-sm-32 mb-lg-4 */}
-            <div className="alert col-md-12 d-flex justify-content-between align-items-center justify-content-center  rounded" style={{ backgroundColor: '#E2F1F8' }}>
-              <div className="d-flex row justify-content-between align-items-center">
-                <p className="mb-0 fs-2 time" style={{ fontWeight: 600, color:'#32395F' }}>09:00</p>
-                <p className="mb-0 description" style={{ fontWeight: 600, color:'#32395F', fontSize:'14px' }}>Une fois | <span className="" style={{ fontWeight: 600, color:'#708090', fontSize:'14px' }}>Alert dans 02h30min</span></p>
-              </div>
-              <div className="form-check form-switch">
-                <input className="form-check-input" type="checkbox" id="switch1" checked={isChecked1} onChange={handleSwitchToggle1} style={{ display: 'none' }} />
-                <label className="form-check-label" htmlFor="switch1" style={{ cursor: 'pointer' }}>
-                  <div className="switch" style={{ width: '50px', height: '30px', borderRadius: '15px', position: 'relative' }}>
-                    <div className="switch-inner" style={{ width: '100%', height: '100%', borderRadius: '15px', backgroundColor: isChecked1 ? '#007dbf' : '#ccc', position: 'absolute', transition: 'transform 0.2s' }}></div>
-                    <div className="switch-switch" style={{ width: '26px', height: '26px', borderRadius: '50%', backgroundColor: '#fff', boxShadow: '0 2px 5px rgba(0, 0, 0, 0.2)', position: 'absolute', top: '2px', left: isChecked1 ? '22px' : '2px', transition: 'left 0.2s' }}></div>
+            <div className="col-md-12 d-flex flex-column rounded" style={{ backgroundColor: selectedTime !== '00:00' ? '#E2F1F8' : '#F7F8FA' }}>
+              <div className="alert d-flex justify-content-between align-items-center justify-content-center" >
+                <div className="d-flex row justify-content-between align-items-center">
+                  <p className="mb-0 fs-2 time" style={{ fontWeight: 600, color:'#32395F' }}>{selectedTime}</p>
+                  <p className="mb-0 description" style={{ fontWeight: 600, color:'#32395F', fontSize:'14px' }}>Une fois | <span className="" style={{ fontWeight: 600, color:'#a5acb5', fontSize:'14px' }}>Alert dans 02h30min</span></p>
+                </div>
+                <div className="form-check form-switch d-flex align-items-center">
+                  <p className='fs-1' style={{ color:'#007dbf', cursor: 'pointer' }} onClick={handleToggleExpandedView}>
+                    {selectedTime !== '00:00' ? (
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" height="23" width="23"><path fill="#007dbf" d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"/></svg>
+                    ) : (
+                      "+"
+                    )}
+                  </p>
+                  <div>
+                    <input className="form-check-input" type="checkbox" id="switch1" checked={isChecked1} onChange={handleSwitchToggle1} style={{ display: 'none' }} />
+                    <label className="form-check-label" htmlFor="switch1" style={{ cursor: 'pointer',  marginLeft: '30px' }}>
+                      <div className="switch" style={{ width: '50px', height: '30px', borderRadius: '15px', position: 'relative' }}>
+                        <div className="switch-inner" style={{ width: '100%', height: '100%', borderRadius: '15px', backgroundColor: isChecked1 ? '#007dbf' : '#ccc', position: 'absolute', transition: 'transform 0.2s' }}></div>
+                        <div className="switch-switch" style={{ width: '26px', height: '26px', borderRadius: '50%', backgroundColor: '#fff', boxShadow: '0 2px 5px rgba(0, 0, 0, 0.2)', position: 'absolute', top: '2px', left: isChecked1 ? '22px' : '2px', transition: 'left 0.2s' }}></div>
+                      </div>
+                    </label>
                   </div>
-                </label>
+                </div>
+              </div>
+              <div>
+                {showExpandedView && (
+                  <div className="expanded-view">
+                    <div className="container">
+                      <div className="d-flex justify-content-center">
+                        <div className="">
+                          <div style={{ textAlign: 'center', fontSize: '1rem', cursor: 'pointer' }} onClick={() => handleHourScroll(-1)}>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" height="18" width="18"><path fill="#a5acb5" d="M201.4 137.4c12.5-12.5 32.8-12.5 45.3 0l160 160c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L224 205.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l160-160z"/></svg>
+                          </div>
+                          <div ref={hourRef} style={containerStyle}>
+                            {hours.map((hour, index) => (
+                              <div key={hour} style={{ ...itemStyle, ...(index === selectedHour && boldStyle) }}>
+                                {hour}
+                              </div>
+                            ))}
+                          </div>
+                          <div style={{ textAlign: 'center', fontSize: '2rem', cursor: 'pointer' }} onClick={() => handleHourScroll(1)}>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" height="18" width="18"><path fill="#a5acb5" d="M201.4 374.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 306.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
+                          </div>
+                        </div>
+                        <div className='nav-separator'  style={{ borderLeft: '1px solid silver', margin: '25px 50px 0 50px', height: '220px' }}></div>
+                        <div className="">
+                          <div style={{ textAlign: 'center', fontSize: '1rem', cursor: 'pointer' }} onClick={() => handleMinuteScroll(-1)}>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" height="18" width="18"><path fill="#a5acb5" d="M201.4 137.4c12.5-12.5 32.8-12.5 45.3 0l160 160c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L224 205.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l160-160z"/></svg> 
+                          </div>
+                          <div ref={minuteRef} style={containerStyle}>
+                            {minutes.map((minute, index) => (
+                              <div key={minute} style={{ ...itemStyle, ...(index === selectedMinute && boldStyle) }}>
+                                {minute}
+                              </div>
+                            ))}
+                          </div>
+                          <div style={{ textAlign: 'center', fontSize: '2rem', cursor: 'pointer' }} onClick={() => handleMinuteScroll(1)}>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" height="18" width="18"><path fill="#a5acb5" d="M201.4 374.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 306.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="d-flex justify-content-end px-3 py-3">
+                      <button className="btn rounded-0 text-uppercase p-0 m-0 me-3" style={{ backgroundColor: 'transparent', fontWeight: 600, color: '#32395F', border: 'none', borderBottom: '1px solid #32395F', display: 'inline-block', lineHeight: '1' }}>Annuler</button>
+                      <button className="btn rounded-0 text-uppercase p-0 m-0" style={{ backgroundColor: 'transparent', fontWeight: 600, color: '#007dbf', border: 'none', borderBottom: '1px solid #007dbf', display: 'inline-block', lineHeight: '1' }} onClick={handleTerminerClick} >Terminer</button>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
+            
             {/* Section 2 */}
-            <div className="alert d-flex justify-content-between align-items-center justify-content-center px-lg-4 px-sm-3 py-lg-3 py-sm-3 mt-lg-4 rounded" style={{ backgroundColor: '#E2F1F8' }}>
+            <div className="alert d-flex justify-content-between align-items-center justify-content-center px-lg-4 px-sm-3 py-lg-3 py-sm-3 mt-lg-4 rounded" style={{ backgroundColor: '#F7F8FA' }}>
               <div className="d-flex row justify-content-between align-items-center fs-6">
                 <p className="mb-0 fs-2 time" style={{ fontWeight: 600, color:'#32395F' }}>09:00</p>
-                <p className="mb-0 description" style={{ fontWeight: 600, color:'#32395F', fontSize:'14px' }}>Une fois | <span className="" style={{ fontWeight: 600, color:'#708090', fontSize:'14px' }}>Alert dans 02h30min</span></p>
+                <p className="mb-0 description" style={{ fontWeight: 600, color:'#32395F', fontSize:'14px' }}>Une fois | <span className="" style={{ fontWeight: 600, color:'#a5acb5', fontSize:'14px' }}>Alert dans 02h30min</span></p>
               </div>
               <div className="form-check form-switch">
                 <input className="form-check-input" type="checkbox" id="switch2" checked={isChecked2} onChange={handleSwitchToggle2} style={{ display: 'none' }} />
